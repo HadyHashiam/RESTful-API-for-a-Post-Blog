@@ -11,8 +11,6 @@ const sendEmail = require('../utils/sendEmail');
 
 
 // @desc    Signup
-// @route   GET /api/v1/auth/signup
-// @access  Public
 exports.signup = asyncHandler(async (req, res, next) => {
   // 1- Create user
   const user = await User.create({
@@ -28,8 +26,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
 
 // @desc    Login
-// @route   GET /api/v1/auth/login
-// @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   // 1) check if password and email in the body (validation)
   // 2) check if user exist & check if password is correct
@@ -118,8 +114,6 @@ exports.allowedTo = (...roles) =>
 
 
 // @desc    Forgot password
-// @route   POST /api/v1/auth/forgotPassword
-// @access  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user by email
   const user = await User.findOne({ email: req.body.email });
@@ -168,8 +162,6 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
 
 // @desc    Verify password reset code
-// @route   POST /api/v1/auth/verifyResetCode
-// @access  Public
 exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
   // 1) Get user based on reset code
   const hashedResetCode = crypto
@@ -201,8 +193,6 @@ exports.verifyPassResetCode = asyncHandler(async (req, res, next) => {
 
 
 // @desc    Reset password
-// @route   POST /api/v1/auth/resetPassword
-// @access  Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   // 1) Get user based on email
   const user = await User.findOne({ email: req.body.email });
