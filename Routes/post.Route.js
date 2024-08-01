@@ -13,24 +13,24 @@ const {
   updatePost,
   deletePost,
   getPostsByUser
-} = require('../Controllers/Post.Controller'); // تأكد من المسار والاسم
+} = require('../Controllers/Post.Controller'); 
 
 const authService = require('../Controllers/auth.Controller');
 
 
 
-router.use(authService.protect); // Protect all routes
+router.use(authService.protect); 
 
 router
   .route('/')
   .get(authService.protect, authService.allowedTo('admin'), getAllPosts)
-  .post(createPostValidator, createPost); // Add validation for creating a post
+  .post(createPostValidator, createPost); 
 
 router
   .route('/:id')
-  .get(getPostValidator, getPost) // Add validation for getting a post
-  .put(updatePostValidator, updatePost) // Add validation for updating a post
-  .delete(authService.protect, authService.allowedTo('admin', 'user'), deletePostValidator, deletePost); // Add validation for deleting a post
+  .get(getPostValidator, getPost) 
+  .put(updatePostValidator, updatePost) 
+  .delete(authService.protect, authService.allowedTo('admin', 'user'), deletePostValidator, deletePost); 
 
 // Route to get all posts by a specific user
 router.route('/user/:userId').get(getPostsByUser);
