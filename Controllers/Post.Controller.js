@@ -33,7 +33,10 @@ exports.getPost = handlerFactory.getOne(Post);
 // Update a post
 exports.updatePost = async (req, res, next) => {
   try {
-    await checkPostOwnership(req.user.id, req.params.id);
+    const { id } = req.params;
+
+    // Check if user is authorized to delete the post
+    await checkPostOwnership(req.user, id);
     const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json({
       status: 'success',
